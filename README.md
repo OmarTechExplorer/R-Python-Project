@@ -29,28 +29,28 @@ A full-stack Library Management System built as a university assignment, demonst
 
 ## Features
 
-### JWT Authentication & Role-Based Access (3 marks)
+### JWT Authentication & Role-Based Access
 - JWT token generation/validation via `python-jose` + `bcrypt`
 - Role-based authorization: **Admin** (librarian) and **Member** (patron)
 - Route protection on backend (FastAPI dependencies) and frontend (Angular guards)
 - Login/register pages with inline validation and toast feedback
 
-### Database Integration (2 marks)
+### Database Integration
 - SQL Server via SQLAlchemy ORM with `get_db` dependency injection
 - Three models: `User`, `Book`, `BorrowRecord` with proper relationships
 - Unicode (NVARCHAR) support for all user-facing text fields
 
-### Input Validation (3 marks)
+### Input Validation
 - Pydantic schemas with `Field` constraints (ge=0, min_length, regex for ISBN)
 - Separate `Create`, `Update`, and `Response` schemas per entity
 - HTTP 422 with descriptive error details on validation failure
 
-### Clean Code (2 marks)
+### Clean Code
 - Modular architecture: `routers/`, `schemas/`, `models/`, `core/`, `cache/`, `monitoring/`
 - Separation of concerns (routes, business logic, data access)
 - Type hints throughout, consistent naming conventions
 
-### Logging & Monitoring (3 marks)
+### Logging & Monitoring
 - Structured logging with 5 severity levels (DEBUG through CRITICAL)
 - Request/response middleware (method, path, status, duration)
 - `GET /health` - database connectivity health check
@@ -58,23 +58,23 @@ A full-stack Library Management System built as a university assignment, demonst
 - `GET /stats/recent-errors` - last 10 error log lines
 - Angular `/admin/dashboard` - visual monitoring dashboard (admin-only)
 
-### Redis Caching (2 marks)
+### Redis Caching
 - Cache-aside pattern on `GET /books` and `GET /books/{id}`
 - Automatic cache invalidation on create, update, delete, borrow, and return
 - Configurable TTL (60s default), graceful fallback when Redis is unavailable
 
-### API Testing (1 mark)
+### API Testing
 - 11 pytest tests across 3 test files covering:
   - **Auth**: Registration, successful login, invalid login
   - **Books**: Admin CRUD, member forbidden, ISBN validation
   - **Borrow**: Borrow success, borrow limit enforcement, return
 - Isolated `library_db_test` database with per-session setup/teardown
 
-### Git & GitHub (1 mark)
+### Git & GitHub
 - Feature branch workflow: `main` to `develop` to `feature/*`
 - Meaningful commits per team member
 
-### Frontend Bonus (2 marks)
+### Frontend Bonus
 - Angular 19 standalone components with Signals and zoneless change detection
 - Tailwind CSS dark mode with responsive design
 - Reactive forms with inline validation
@@ -82,7 +82,7 @@ A full-stack Library Management System built as a university assignment, demonst
 - Book cover upload (device or URL) with live image preview
 - Optimistic UI updates with revert on error
 
-### Docker Bonus (2 marks)
+### Docker Bonus
 - `Dockerfile` with Python 3.12-slim, ODBC Driver 18, non-root user
 - `docker-compose.yml` with Redis + backend, health checks, volume mounts
 
