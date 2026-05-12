@@ -1,4 +1,4 @@
-# LibreFlow — Library Management System
+# LibreFlow - Library Management System
 
 A full-stack Library Management System built as a university assignment, demonstrating **FastAPI** (backend) and **Angular** (frontend) with JWT authentication, role-based access control, Redis caching, SQL Server, Docker deployment, and comprehensive testing.
 
@@ -11,7 +11,23 @@ A full-stack Library Management System built as a university assignment, demonst
 
 ---
 
-## Features (Scoring Breakdown)
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Team Members & Role Assignments](#team-members--role-assignments)
+- [Quick Start](#quick-start)
+- [API Reference](#api-reference)
+- [Business Rules](#business-rules)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Docker Reference](#docker-reference)
+- [Key Technical Decisions](#key-technical-decisions)
+- [Tools & Technologies](#tools--technologies)
+
+---
+
+## Features
 
 ### JWT Authentication & Role-Based Access (3 marks)
 - JWT token generation/validation via `python-jose` + `bcrypt`
@@ -31,16 +47,16 @@ A full-stack Library Management System built as a university assignment, demonst
 
 ### Clean Code (2 marks)
 - Modular architecture: `routers/`, `schemas/`, `models/`, `core/`, `cache/`, `monitoring/`
-- Separation of concerns (routes ↔ business logic ↔ data access)
+- Separation of concerns (routes, business logic, data access)
 - Type hints throughout, consistent naming conventions
 
 ### Logging & Monitoring (3 marks)
 - Structured logging with 5 severity levels (DEBUG through CRITICAL)
 - Request/response middleware (method, path, status, duration)
-- `GET /health` — database connectivity health check
-- `GET /stats` — aggregate request metrics (total, failed, error rate, uptime)
-- `GET /stats/recent-errors` — last 10 error log lines
-- Angular `/admin/dashboard` — visual monitoring dashboard (admin-only)
+- `GET /health` - database connectivity health check
+- `GET /stats` - aggregate request metrics (total, failed, error rate, uptime)
+- `GET /stats/recent-errors` - last 10 error log lines
+- Angular `/admin/dashboard` - visual monitoring dashboard (admin-only)
 
 ### Redis Caching (2 marks)
 - Cache-aside pattern on `GET /books` and `GET /books/{id}`
@@ -55,7 +71,7 @@ A full-stack Library Management System built as a university assignment, demonst
 - Isolated `library_db_test` database with per-session setup/teardown
 
 ### Git & GitHub (1 mark)
-- Feature branch workflow: `main` → `develop` → `feature/*`
+- Feature branch workflow: `main` to `develop` to `feature/*`
 - Meaningful commits per team member
 
 ### Frontend Bonus (2 marks)
@@ -75,19 +91,16 @@ A full-stack Library Management System built as a university assignment, demonst
 ## Architecture
 
 ```
-┌──────────────┐     HTTP/JSON      ┌──────────────┐     SQL      ┌──────────────┐
-│   Angular    │ ─────────────────▶  │   FastAPI    │ ──────────▶  │  SQL Server  │
-│  localhost:4200 │ ◀────────────────│  localhost:8001 │ ◀──────────│  localhost:53516 │
-└──────────────┘                    └──────┬───────┘               └──────────────┘
-                                            │
-                                       ┌────┴────┐
-                                       │  Redis  │
-                                       │   Cache │
-                                       └─────────┘
+                        HTTP/JSON                   SQL
+    Angular --------------------------- FastAPI -------------- SQL Server
+    localhost:4200                     localhost:8001          localhost:53516
+                                            |
+                                           Redis
+                                           Cache
 ```
 
 ### Auth Flow
-1. User submits credentials → `POST /auth/login`
+1. User submits credentials to `POST /auth/login`
 2. Backend verifies password hash, returns JWT `access_token`
 3. Frontend stores token in `localStorage`, decodes user info
 4. `AuthInterceptor` attaches `Authorization: Bearer <token>` to every request
@@ -102,7 +115,7 @@ A full-stack Library Management System built as a university assignment, demonst
 |--------|------|------------------|---------------|
 | **Member A** (You) | DevOps & Frontend Lead | Angular UI, Docker, Git/GitHub, pytest tests, README | Testing 1 + Git 1 + Frontend 2 + Docker 2 = **6** |
 | **Member B** | Auth & Security Lead | JWT auth, registration/login, password hashing, role deps | JWT 3 = **3** |
-| **Member C** | Business Logic Lead | Book CRUD, borrow/return system, availability logic, cache invalidation | — (shared) |
+| **Member C** | Business Logic Lead | Book CRUD, borrow/return system, availability logic, cache invalidation | -- (shared) |
 | **Member D** | Data Layer Lead | SQLAlchemy models, Pydantic schemas, validation, DB session | Database 2 + Validation 3 = **5** |
 | **Member E** | Performance Lead | Redis client, cache-aside pattern, TTL management, cache invalidation | Caching 2 = **2** |
 | **Member F** | Observability Lead | Logging setup, request middleware, /health & /stats endpoints, monitoring | Logging & Monitoring 3 = **3** |
@@ -132,7 +145,7 @@ python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
 copy .env.example .env    # edit DATABASE_URL + SECRET_KEY
-uvicorn app.main:app --reload    # → http://localhost:8000
+uvicorn app.main:app --reload    # -> http://localhost:8000
 ```
 
 ### 3. Redis (Docker)
@@ -144,7 +157,7 @@ docker run -d -p 6379:6379 redis:7
 ```bash
 cd library-system
 npm install
-ng serve    # → http://localhost:4200
+ng serve    # -> http://localhost:4200
 ```
 
 ### 5. Docker (All-in-One)
@@ -170,14 +183,14 @@ docker compose up --build -d
 ### Authentication
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| POST | `/auth/register` | — | Register new user (role: member) |
-| POST | `/auth/login` | — | Login, returns JWT token |
+| POST | `/auth/register` | -- | Register new user (role: member) |
+| POST | `/auth/login` | -- | Login, returns JWT token |
 
 ### Books
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/books` | — | List all books (cached) |
-| GET | `/books/{id}` | — | Get book by ID (cached) |
+| GET | `/books` | -- | List all books (cached) |
+| GET | `/books/{id}` | -- | Get book by ID (cached) |
 | POST | `/books` | Admin | Create book |
 | PUT | `/books/{id}` | Admin | Update book |
 | DELETE | `/books/{id}` | Admin | Delete book (if no active borrows) |
@@ -194,15 +207,15 @@ docker compose up --build -d
 ### Monitoring
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
-| GET | `/health` | — | DB connectivity check |
-| GET | `/stats` | — | Request metrics & error rate |
-| GET | `/stats/recent-errors` | — | Last 10 error log entries |
+| GET | `/health` | -- | DB connectivity check |
+| GET | `/stats` | -- | Request metrics & error rate |
+| GET | `/stats/recent-errors` | -- | Last 10 error log entries |
 | GET | `/admin/dashboard` | Admin | Visual monitoring (frontend) |
 
 ---
 
 ## Business Rules
-- Books cannot be borrowed if `available_copies ≤ 0`
+- Books cannot be borrowed if `available_copies <= 0`
 - A user cannot borrow the same book twice without returning it first
 - Maximum **3 active borrows** per user
 - Returning a book restores `available_copies`
@@ -288,18 +301,6 @@ docker compose down
 
 ---
 
-## Individual Discussion Preparation (8 Marks)
-
-Each team member should be ready to discuss:
-
-1. **Their module**: Architecture, key functions, data flow
-2. **Design decisions**: Why FastAPI? Why Angular? Why cache-aside? Why NVARCHAR?
-3. **Trade-offs**: Synchronous vs async, cache invalidation strategy, race conditions handled
-4. **Challenges**: ODBC driver in Docker, Unicode support migration, token-based auth edge cases
-5. **Testing strategy**: What was tested, how isolation works, mocks vs real DB
-
----
-
 ## Key Technical Decisions
 
 | Decision | Rationale |
@@ -327,5 +328,3 @@ Each team member should be ready to discuss:
 | Docker | Containerization & deployment |
 | pytest | API-level integration testing |
 | ODBC Driver 18 | SQL Server connectivity from Linux containers |
-#   R - P y t h o n - P r o j e c t  
- 
