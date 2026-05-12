@@ -111,14 +111,14 @@ A full-stack Library Management System built as a university assignment, demonst
 
 ## Team Members & Role Assignments
 
-| Member | Role | Key Deliverables | Scoring Marks |
-|--------|------|------------------|---------------|
-| **Abdelrahman Ezat** | DevOps & Frontend Lead | Angular UI, Docker, Git/GitHub, pytest tests, README | Testing 1 + Git 1 + Frontend 2 + Docker 2 = **6** |
-| **Ziad Mustafa** | Auth & Security Lead | JWT auth, registration/login, password hashing, role deps | JWT 3 = **3** |
-| **Omar Khaled** | Business Logic Lead | Book CRUD, borrow/return system, availability logic, cache invalidation | -- (shared) |
-| **Joseph Wafik** | Data Layer Lead | SQLAlchemy models, Pydantic schemas, validation, DB session | Database 2 + Validation 3 = **5** |
-| **Shehab Hossam** | Performance Lead | Redis client, cache-aside pattern, TTL management, cache invalidation | Caching 2 = **2** |
-| **Saeed Nadim** | Observability Lead | Logging setup, request middleware, /health & /stats endpoints, monitoring | Logging & Monitoring 3 = **3** |
+| Member | Role | Key Deliverables |
+|--------|------|------------------|
+| **Abdelrahman Ezat** | DevOps & Frontend Lead | Angular UI, Docker, Git/GitHub, pytest tests, README |
+| **Ziad Mustafa** | Auth & Security Lead | JWT auth, registration/login, password hashing, role deps |
+| **Omar Khaled** | Business Logic Lead | Book CRUD, borrow/return system, availability logic, cache invalidation |
+| **Joseph Wafik** | Data Layer Lead | SQLAlchemy models, Pydantic schemas, validation, DB session |
+| **Shehab Hossam** | Performance Lead | Redis client, cache-aside pattern, TTL management, cache invalidation |
+| **Saeed Nadim** | Observability Lead | Logging setup, request middleware, /health & /stats endpoints, monitoring |
 
 ---
 
